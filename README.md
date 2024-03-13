@@ -37,7 +37,7 @@ If you have bash, git, wget, unzip, Python 3.11, pip, and Python venv installed 
 
 ### With access to University GitLab servers:
 Ensure you have Git and Git LFS installed and follow the following steps:
-  1. Clone this repository.
+  1. Run `git clone https://stgit.dcs.gla.ac.uk/team-project-h/2023/sh31/sh31-main.git && cd sh31-main`
   1. Run `pip install -r requirements.txt` to install all dependencies.
   1. Run `git lfs pull` to pull all large NLP models.
   1. Run `./db-clean.sh` with this directory as the working directory.
