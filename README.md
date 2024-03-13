@@ -10,7 +10,7 @@ Conversation Intelligence Analyser revolutionises the way you understand and int
 
 For all installation methods, `python 3.11` must be installed along with `pip`, first method is recommended as an one-click installation and deployment.
 
-We recommend using a machine that has at least 8 GB of RAM and 30 GB of free storage space.
+We recommend using a machine that has at least 8 GB RAM and 30 GB free storage space.
 
 ### Install from GitHub repository
 Run the following commands on your machine:
