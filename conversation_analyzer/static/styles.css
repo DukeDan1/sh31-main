@@ -1,0 +1,475 @@
+/* Reset some default styles */
+body, h1, h2, p, ul, li, form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Define overall page styles */
+body {
+    font-family: "Roboto", 'Arial', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+    background-image: url(gplaypattern.png);
+    background-position: left;
+    zoom: 90%;
+}
+
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.nav {
+    background-color: #e4e3e3de;
+    text-align: center;
+}
+
+.nav-settings {
+    position: absolute;
+    bottom: 0;
+}
+
+.navbar-brand{
+    text-align: center;
+}
+
+.general-item {
+    min-width: 12rem;
+}
+
+/* Login Page styles */
+.login-container {
+    background-color: rgb(214, 152, 255);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: 30px auto; 
+    padding: 20px;
+    position: fixed;
+    top: 20px;
+    right: 0px;
+    height: 20px;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container label, .login-container input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container button {
+    width: 100%;
+    background-color: #1c3758;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #1c3758;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+@font-face {
+    font-family: 'Material Icons Sharp';
+    font-style: normal;
+    font-weight: 400;
+    src: url(./MaterialIconsSharp-Regular.otf);
+}
+
+.icon {
+    font-family: 'Material Icons Sharp';
+}
+
+#preview-grid {
+    height: 40rem;
+}
+
+#concept-analysis-grid, #category-analysis-grid {
+    height: 10rem;
+}
+
+#message-overview, #message-overview td {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    text-align: center;
+}
+
+#message-overview th {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    padding: 5px;
+    text-align: center;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    float: left;
+}
+
+.right-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    float: right;
+}
+
+.highest-risk-message {
+    width: 25rem;
+    height: 8rem;
+    /* padding-bottom:30px; */
+}
+
+.highest-risk-body {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    height: 8rem; /* or as needed */
+}
+
+.w-45 {
+    width: 45%;
+}
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: rgb(0, 228, 0);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  button,
+input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#alert {
+  display: none;
+  color: red;
+  margin-bottom: 10px;
+}
+
+fieldset{
+    padding:30px; 
+    border:1px solid #000000; 
+    background:#f6faff;
+    border-radius: 10px;
+}
+
+.scroll-half-container {
+    max-height: 100%;
+    overflow: scroll;
+}
+
+.mainprofile {
+    padding: 0px;
+}
+
+.subprofile h3 {
+    font-size: 20px;
+}
+
+.subprofile h5 {
+    font-size: 12px;
+}
+
+.col a {
+    text-decoration: none;
+    color: black;
+}
+
+.subprofile {
+    width: 400px;
+}
+
+.analysis-grid {
+    height: 10rem;
+}
+
+.document-link {
+    text-decoration: none;
+}
+
+.header-container {
+    clear: both;
+}
+
+.modal-title {
+    --fontSize: 20;
+    line-height: 1.5;
+    --minFontSize: 20;
+}
+
+#login-container {
+    width: 500px;
+}
+
+#username {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-bottom: 1px;
+}
+
+#password {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    margin-top: 1px;
+}
+
+#login-image {
+    background-image: url(login_background.png);
+    background-size: cover;
+    background-position: center;
+}
+
+/* Chatbot Widget Container */
+#chatbot {
+    position: fixed; /* Fixed position */
+    bottom: 20px; /* 20px from the bottom */
+    right: 20px; /* 20px from the left */
+    max-width: 500px;
+    width: 100%; /* Optional: for smaller screens */
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    flex-direction: column;
+    padding: 10px;
+    z-index: 1000; /* High z-index to ensure it's above other content */
+    overflow: hidden; /* Hide scroll bars */
+}
+
+#chatbot-close {
+    position: relative;
+    float: right;
+    cursor: pointer;
+}
+
+#document-id {
+    float: left;
+    width: calc(100% - 30px);
+}
+
+#chatbot-button {
+    position: fixed;
+    z-index: 1000;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 100%;
+}
+
+/* Style rules for smaller screens */
+@media (max-width: 520px) {
+    #chatbot {
+        max-width: none;
+        right: 0;
+        bottom: 0;
+        border-radius: 0;
+    }
+}
+
+/* Chatbot Body */
+#chatbot-body {
+    overflow-y: auto;
+    padding: 15px;
+    height: 500px;
+}
+
+@media screen and (max-height: 500px) {
+    #chatbot-body {
+        height: 100%;
+    }
+}
+
+/* Input Wrapper */
+#chatbot-form {
+    display: flex;
+    padding: 10px;
+}
+
+#chatbot-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    border-radius: 15px;
+    border: 1px solid #ced4da;
+    padding: 8px;
+    resize: none; /* Prevents manual resizing */
+    overflow-y: auto; /* Allows scroll */
+    height: 38px; /* Allows it to grow with content */
+    max-height: 114px; /* Maximum height for three lines of text */
+}
+
+#chatbot-submit {
+    white-space: nowrap;
+    border-radius: 15px;
+}
+
+/* Message Bubbles */
+.chatbot-message {
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    color: #fff;
+    word-wrap: break-word;
+    max-width: 70%;
+}
+
+#chatbot-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.user {
+    background-color: #007bff;
+    margin-left: auto;
+    text-align: left;
+}
+
+.assistant {
+    background-color: #6c757d;
+    text-align: left;
+}
+
+/* Loading Spinner */
+.spinner-grow {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+
+.top-bar {
+    height: 5rem;
+}
+
+.main {
+    max-height: calc(100% - 5rem);
+    height: 100%;
+}
+
+.btn-outline-primary-inverse {
+    color: #fff;
+    background-image: none;
+    background-color: #0275d8;
+    border-color: #fff;
+}
+
+.btn-outline-primary-inverse:hover {
+    color: #0275d8;
+    background-color: transparent;
+    border-color: #0275d8;
+}
+
+.btn-outline-danger-inverse {
+    color: #fff;
+    background-image: none;
+    background-color: #dc3545;
+    border-color: #fff;
+}
+
+.btn-outline-danger-inverse:hover {
+    color: #dc3545;
+    background-color: transparent;
+    border-color: #dc3545;
+}
+
+.btn-outline-success-inverse {
+    color: #fff;
+    background-image: none;
+    background-color: #198754;
+    border-color: #fff;
+}
+
+.btn-outline-success-inverse:hover {
+    color: #198754;
+    background-color: transparent;
+    border-color: #198754;
+}

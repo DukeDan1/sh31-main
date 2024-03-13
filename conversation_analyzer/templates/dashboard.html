@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_block %}
+<script src="{% static 'scripts/nlp-processing.js' %}"></script>
+<script src="{% static 'scripts/dashboard.js' %}" defer></script>
+<script src="{% static 'scripts/chatbot.js' %}"></script>
+<script src="https://cdn.plot.ly/plotly-2.29.1.min.js"
+        integrity="sha384-2Awn9xf60yat/9WEC0yqxTXZqM0JxXnaCOtaiZe7Ni/pRgbf6LqjX77nxupwylby"
+        crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block title_block %}
+Dashboard
+{% endblock %}
+
+{% block body_block %}
+  {% csrf_token %}
+  {% include "chatbot.html" %}
+  <section class="d-flex justify-content-between">
+    <h1>Dashboard</h1>
+    <div>
+      <label for="progress-nlp">NLP Analysis Progress:</label>
+      <progress id="progress-nlp" value="{{ initial_progress }}"
+          max="100" class="d-block"></progress>
+    </div>
+  </section>
+
+  {% if hide_chatbot %}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Warning:"
+          viewBox="0 0 24 24" fill="currentColor">
+          <path
+              d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </svg>
+      <div class="text-muted small text-center">
+          You have not accepted any documents yet. Please <a href="{% url 'upload' %}">upload</a> and accept a document to view analysis, use the chatbot, and more.
+      </div>
+    </div>
+  {% else %}
+    <form id="dropdown_form" method="post" action="{% url 'dashboard' %}">
+      {% csrf_token %}
+      <h4 class="d-inline">Analysis of: </h4>
+      <button id="dropdown" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ selected }}
+      </button>
+      <ul class="dropdown-menu">
+        {% for document in documents %}
+          <li>
+          <a class="dropdown-item" href="#" onclick="selectDocument('{{document.uuid}}')">
+            {{ document.display_name }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      <input type="hidden" id="selectDocument" name="selected_document" value="">
+    </form>
+  {% endif %}
+
+  <div class="container text-center">
+    <div class="row row-cols-2">
+      <div class="col mt-3">
+        <div class="card h-100">
+          <section class="h-50 mt-3 px-2">
+            <h2>Recent Documents</h2>
+            <ul class="card-body">
+              {% if recent_document_activities %}
+                {% for activity in recent_document_activities %}
+                  <li>{% autoescape off %}{{ activity }}{% endautoescape %}</li>
+                {% endfor %}
+              {% elif recent_tracking_disabled %}
+                You do not have recent query tracking enabled. Enable <a href="{% url 'settings' %}" class="text-primary">here</a>.
+              {% else %}
+                You do not have any recent document activity.
+              {% endif %}
+            </ul>
+          </section>
+          <hr/>
+          <section class="h-50">
+            <h2>Recent Profiles</h2>
+            <div class="card-body">
+              {% if recent_profiles %}
+                <div class="row row-cols-3">
+                  {% for profile in recent_profiles %}
+                    <div class="col">
+                      <a href="{% url 'profile' profile.pk %}">
+                        <img src="https://ui-avatars.com/api/?size=80&name={{ profile.name|urlencode }}"
+                            alt="{{ profile.name }}'s avatar" width="80" height="80" class="mb-3"/>
+                        <p>{{ profile.name }}</p>
+                      </a>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% elif recent_tracking_disabled %}
+                You do not have recent query tracking enabled. Enable <a href="{% url 'settings' %}" class="text-primary">here</a>.
+              {% else %}
+                You do not have any recent profile activity.
+              {% endif %}
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card h-100">
+          {% autoescape off %}
+          {{ graph_1 }}
+          {% endautoescape %}
+          {{ graph_1_meaning }}
+        </div>
+      </div>
+      <div class="col-12 mt-3">
+        <div class="card h-100">
+        {% autoescape off %}
+        {{ graph_2 }}
+        {% endautoescape %}
+        {{ graph_2_meaning }}
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card h-100">
+          {% autoescape off %}
+          {{ graph_3 }}
+          {% endautoescape %}
+          {{ graph_3_meaning }}
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card h-100">
+          {% autoescape off %}
+          {{ graph_4 }}
+          {% endautoescape %}
+          {{ graph_4_meaning }}
+        </div>
+      </div>
+      <div class="col-12 mt-3">
+        <div class="card h-100">
+          {% autoescape off %}
+          {{ graph_5 }}
+          {% endautoescape %}
+          {{ graph_5_meaning }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block post_body_block %}
+<script>processFileNLPWithProgress(null, {{ should_refresh }});</script>
+{% endblock %}

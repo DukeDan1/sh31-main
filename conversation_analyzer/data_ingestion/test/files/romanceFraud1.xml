@@ -1,0 +1,60 @@
+<messages>
+    <message>
+        <date>2022-01-01</date>
+        <time>05:30:01</time>
+        <username>janiesmith23</username>
+        <name>Jamie Smith</name>
+        <body>Yo, fellas, has anyone heard from Erin today? 🤔 Was supposed to meet her at the library today but she didn't show</body>
+        <ip_address>12.12.12.12</ip_address>
+    </message>
+    <message>
+        <date>2021-12-12</date>
+        <time>15:32:15</time>
+        <username>alexmartin4</username>
+        <name>Alex Martinez</name>
+        <body>Nah bro, haven't heard from her since yesterday. She said something 'bout going to that new exhibit at the Metropolitan Museum of Art. Maybe she got caught up there? 🎨</body>
+        <ip_address>14.12.12.12</ip_address>
+    </message>
+    <message>
+        <date>15.12.12</date>
+        <time>15:34:50</time>
+        <username>miawilliams3</username>
+        <name>Mia Williams</name>
+        <body>Guuuys, I'm getting worried now 😟 We should've heard from her by now. She ain't the type to just vanish like this.</body>
+        <ip_address>12.12.12.12</ip_address>
+    </message>
+    <message>
+        <date>2022-01-01</date>
+        <time>15:36:30</time>
+        <username>janiesmith23</username>
+        <name>Jamie Smith</name>
+        <body>True that, Mia. Let's not freak out though. Lemme try calling her again</body>
+        <ip_address>12.12.12.12</ip_address>
+    </message>
+    <message>
+        <date>2022-01-15</date>
+        <time>16:23:20</time>
+        <username>alexmartinez</username>
+        <name>Alex Martinez</name>
+        <body>While you're at it, Jamie, someone should reach out to her folks too. They might know something.</body>
+        <ip_address>13.45.67.84</ip_address>
+    </message>
+    <message>
+        <date>2021-09-25</date>
+        <time>15:40:20</time>
+        <username>mia_williams</username>
+        <name>Mia Williams</name>
+        <body>Good call, Alex. I'll hit up Mrs. Johnson. She's always been chill with us. Call me on 07873 876123 📲</body>
+        <mentions>
+            <phone_number>07873 876123</phone_number>
+        </mentions>
+    </message>
+    <message>
+        <date>2021-09-25</date>
+        <time>15:43:45</time>
+        <name>Jamie Smith</name>
+        <phone_number>07123 234123</phone_number>
+        <body>Still no answer guys. Her phone is going straight to voicemail. 😓</body>
+        <ip_address>12.45.23.23</ip_address>
+    </message>
+</messages>

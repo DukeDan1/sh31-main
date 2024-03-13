@@ -1,0 +1,22 @@
+2021-09-24T19:00:01, Danny: Hey Erin, how's it going? 😊
+2021-09-24T19:02:15, Erin Johnson: Hey Danny, I'm good. Just finished reading the latest Harry Potter book. 📚 You?
+2021-09-24T19:05:00, Danny: Just got off work. Silicon Valley never sleeps, you know? 😄
+2021-09-24T19:07:30, Erin Johnson: Haha, I can imagine. So, you mentioned something about a signed copy of J.K. Rowling's book?
+2021-09-24T19:10:00, Danny: Yes, I did. I have a friend who works at Barnes & Noble and he managed to get a signed copy. Would you like to have it?
+2021-09-24T19:13:45, Erin Johnson: Are you serious? That would be amazing! 🤩
+2021-09-24T19:16:00, Danny: I thought you might like it. How about we meet tomorrow at the Metropolitan Museum of Art? I can give you the book there.
+2021-09-24T19:18:30, Erin Johnson: That sounds perfect. I've always wanted to visit the museum. Thanks, Danny!
+2021-09-24T19:20:00, Danny: No problem, Erin. Looking forward to it. Let's say around noon?
+2021-09-24T19:22:30, Erin Johnson: Sounds good to me. See you tomorrow, Danny.
+2021-09-24T19:30:01, Danny: There's one thing though, Erin. 🤔
+2021-09-24T19:32:15, Erin Johnson: Oh? What's that?
+2021-09-24T19:35:00, Danny: Well, getting the signed book wasn't exactly free... 😅
+2021-09-24T19:37:30, Erin Johnson: Oh, I see. How much do I owe you?
+2021-09-24T19:40:00, Danny: It's not just about the money. My friend who works at Barnes & Noble, he's in a bit of a bind. He needs a favor in return.
+2021-09-24T19:43:45, Erin Johnson: A favor? What kind of favor?
+2021-09-24T19:46:00, Danny: He's been working on a project and needs some financial backing. I told him about you, how smart and resourceful you are. He'd really appreciate your help.
+2021-09-24T19:48:30, Erin Johnson: I don't know, Danny... I'm just a student. I don't have a lot of money to invest in projects.
+2021-09-24T19:50:00, Danny: I understand, Erin. But think about it. This could be a great opportunity for you. And besides, it's not a huge amount. Just $500.
+2021-09-24T19:52:30, Erin Johnson: $500 is a lot for me, Danny. Plus, I don't even know your friend. This is all moving too fast.
+2021-09-24T19:55:00, Danny: I get it, Erin. But sometimes, you have to take risks to get rewards. I'll be there with you every step of the way. You can trust me.
+2021-09-24T19:57:30, Erin Johnson: I... I need to think about this, Danny. Let's talk tomorrow at the museum.

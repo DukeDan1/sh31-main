@@ -1,0 +1,12 @@
+<data>
+    <record>
+        <name>Alice</name>
+        <body>Hi</body>
+        <date>2022-01-01</date>
+    </record>
+    <record>
+        <name>Bob</name>
+        <body>Hello world!</body>
+        <date>2022-01-02</date>
+    </record>
+</data>

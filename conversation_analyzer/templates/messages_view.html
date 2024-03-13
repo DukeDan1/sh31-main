@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_block %}
+<link href="https://cdn.jsdelivr.net/npm/ag-grid-community@30.2.0/styles/ag-grid.css"
+      rel="stylesheet"
+      integrity="sha384-JTt+zn4Zhbf6S72v/8sQgqIAtkF3NPoO0mx1dOix809DJaQH/RcQTMqfGTF7P+Zb"
+      crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community@30.2.0/dist/ag-grid-community.min.js"
+        integrity="sha384-KswqoalgJ46OE1uzrWXLdYnzt51qTMTgrX33TXRohwaVgmuigJgC4Preum4hOlkC"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-2.29.1.min.js"
+        integrity="sha384-2Awn9xf60yat/9WEC0yqxTXZqM0JxXnaCOtaiZe7Ni/pRgbf6LqjX77nxupwylby"
+        crossorigin="anonymous"></script>
+<script src="{% static 'scripts/document-view.js' %}"></script>
+<script src="{% static 'scripts/chatbot.js' %}"></script>
+<script src="{% static 'scripts/document-management.js' %}"></script>
+<script src="{% static 'scripts/nlp-processing.js' %}"></script>
+{% endblock %}
+
+{% block title_block %}
+Messages View
+{% endblock %}
+
+{% block body_block %}
+  {% csrf_token %}
+  {% include "chatbot.html" %}
+  {% include "document_management.html" %}
+  <div class="modal fade" id="document-list-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="document-list-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="document-list-modal-title" data-fontsize="20" data-lineheight="30px">Recent Documents</h5>
+                  <button type="button" id="modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-search" aria-controls="search-offcanvas-label">
+                  <img src="{% static 'search.svg' %}" width="24" height="24" alt="Search Icon">
+                  Search Documents
+                </button>
+
+                <ul class="list-group mt-3">
+                  {% for document in documents %}
+                    <li class="list-group-item">
+                      <a href="{% url 'messages_view' document.uuid %}" class="document-link">
+                        <span class="icon">&#xe873;</span>
+                        {{ document.display_name }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal">Close</button>
+        </div>      
+      </div>
+    </div>
+  </div>
+
+  <div id="document-list-open-sm" class="d-none mt-3 float-end">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#document-list-modal">
+      Open another document
+    </button>
+  </div>
+
+  <div class="header-container">
+    <h1><span class="left-header">Messages</span></h1>
+    <h3><span class="right-header">Document Name - {{ document_name }}</span></h3>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <h4 class="card-title">Document Overview</h4>
+        {% if openai %}
+          <div class="grid">
+            <div class="row mb-3">
+              <div class="col">
+                {% if openai.summary %}
+                  <div class="card">
+                    <h6 class="card-header">Summary</h6>
+                    <div class="card-body">
+                      <p class="card-text">{{ openai.summary }}</p>
+                    </div>
+                  </div>
+                {% endif %}
+                </div>
+            </div>
+
+              <div class="row">
+              {% if sentiment_risk_graph %}
+                <div class="col">
+                  <div class="card">
+                    <h6 class="card-header">Sentiment and Risk Score Graph</h6>
+                    <div class="card-body">
+                      {% autoescape off %}
+                      {{ sentiment_risk_graph }}
+                      <p><b>Risk Score:</b> {{ openai.risk_score.score }}</p>
+                      <p><b>Risk Evaluation:</b> {{ openai.risk_score_reason }}</p>
+                      {% endautoescape %}
+                    </div>
+                  </div>
+                </div>
+                {% else %}
+                <div class="col">
+                  <div class="card">
+                    <h6 class="card-header">Sentiment and Risk Score Graph</h6>
+                    <div class="card-body">
+                      <p class="card-text">The graph for this document has failed to generate.</p>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+  </div>
+
+  <div class="row">
+  <div class="col">
+    <div class="card">
+      <h6 class="card-header">Analysis</h6>
+          <div class="card-body p-4">
+          {% if openai.victim %}
+            <p><b>Victim:</b> {{ openai.victim }}</p>
+          {% endif %}
+
+          {% if openai.fraud_type %}
+            <p><b>Fraud Type:</b> {{ openai.fraud_type }}</p>
+          {% endif %}
+
+          {% if openai.sentiment %}
+            <p><b>Sentiment:</b> {{ openai.sentiment }}</p>
+          {% endif %}
+
+          {% if openai.risk_score %}
+            <p><b>Risk Score:</b> {{ openai.risk_score.score }} {% if openai.risk_score.descriptor %} &mdash; {{ openai.risk_score.descriptor }} {% endif %}</p>
+          {% endif %}
+
+          {% if openai.risk_score_reason %}
+            <p><b>Risk Score Reason:</b> {{ openai.risk_score_reason }}</p>
+          {% endif %}
+
+          {% if openai.locations %}
+            <p><b>Locations:</b> 
+              {% for location in openai.locations %}
+                <a href="#" onclick="jumpToMessage('{{ location.message }}', event)">{{ location.location }}</a>
+                {% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </p>
+          {% endif %}
+
+          {% if openai.dangerous_behaviour %}
+            <p><b>Dangerous Behaviour:</b>
+              {% if openai.dangerous_behaviour.escalating %}Escalating
+                {% if openai.dangerous_behaviour.escalating_messages %}
+
+                    ({% for message in openai.dangerous_behaviour.escalating_messages %}
+                      <a href="#" onclick="jumpToMessage('{{ message }}', event)">{{ message }}</a>
+                      {% if not forloop.last %}, {% endif %}
+                    {% endfor %})
+
+                {% endif %}
+              {% endif %}
+              {% if openai.dangerous_behaviour.manipulative and openai.dangerous_behaviour.escalating %} and {% endif %}
+              {% if openai.dangerous_behaviour.manipulative %}
+                Manipulative
+                {% if openai.dangerous_behaviour.manipulative_messages %}
+
+                    ({% for message in openai.dangerous_behaviour.manipulative_messages %}
+                      <a href="#" onclick="jumpToMessage('{{ message }}', event)">{{ message }}</a>
+                      {% if not forloop.last %}, {% endif %}
+                    {% endfor %})
+
+                {% endif %}
+              {% endif %}
+              {% if openai.dangerous_behaviour.summary %} &mdash; {{ openai.dangerous_behaviour.summary }} {% endif %}
+            </p>
+          {% endif %}
+
+          {% if openai.motives %}
+            <p><b>Motives:</b> {% for motive in openai.motives %}{{ motive }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+          {% endif %}
+
+          {% if openai.monetary_requests %}
+            <p><b>Monetary Requests:</b> 
+              {% for request in openai.monetary_requests %}
+                <a href="#" onclick="jumpToMessage('{{ request.message }}', event)">{{ request.amount }}</a>
+              {% if not forloop.last %}, {% endif %}
+            {% endfor %}</p>
+          {% endif %}
+
+          {% if openai.contradictions %}
+            <p><b>Contradictions:</b>
+              {% for contradiction in openai.contradictions %}
+                <a href="#" onclick="jumpToMessage('{{ contradiction.message }}', event)">{{ contradiction.contradiction }}</a>
+                {% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </p>
+          {% endif %}
+          {% if sentiment_risk_graph %}
+            {% autoescape off %}
+            {{ sentiment_risk_graph }}
+            {% endautoescape %}
+          {% else %}
+            <p>The graph for this document has failed to generate.</p>
+          {% endif %}
+        {% else %}
+          <p>The document overview is being generated, and it will appear here when it is ready.</p>
+        {% endif %}
+    </div>
+    </div>
+  </div>
+  </div>
+
+  <br>
+
+  <section class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h4 class="card-title"><strong>Highest Risk Messages (Descending Risk Order)</strong></h4>
+        <div>
+          <label for="progress-nlp">NLP Analysis Progress:</label>
+          <progress id="progress-nlp" value="{{ initial_progress }}" max="100"></progress>
+        </div>
+      </div>
+    <section class="d-flex flex-row overflow-scroll">
+      {% for message in sorted_messages %}
+      <a href="#" 
+      onclick="displayAnalysis('{{ message.pk }}', event); scrollToMessage('{{ message.pk }}');">
+          <div class="card highest-risk-message mx-2 my-3">
+            <h5 class="card-title ps-3 pt-2">{{ message.owner }}</h5>
+            <p class="card-body highest-risk-body py-1">{{ message.body|truncatechars:120 }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </section>
+    </div>
+
+  <section class="card my-3 scroll-half-container p-4">
+    {% for message in messages %}
+      <div>
+        <a href="#" onclick="displayAnalysis('{{ message.pk }}', event)" data-index="{{ forloop.counter0 }}">
+          <div class="card mx-4 my-2 w-45 {% if message.owner == first_message_owner %}
+              float-start {% else %} float-end bg-primary text-light{% endif %}">
+            <h5 class="card-title ps-3 pt-3">{{ message.owner }} - {{message.date}}</h5>
+            <p class="card-body pt-1 pb-3">{{ message.body }}</p>
+            <div id="md-{{ message.pk }}" class="card-body message-details d-none pb-3 pt-0"></div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </section>
+
+{% endblock %}
+
+{% block post_body_block %}
+<ul id="document-list-lg" class="nav w-auto flex-column flex-grow-1 d-none p-3">
+  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-search" aria-controls="search-offcanvas-label">
+    Search Documents
+  </button>
+  {% for document in documents %}
+    <li class="nav-item">
+      <a href="{% url 'messages_view' document.uuid %}" class="nav-link">
+        <span class="icon">&#xe873;</span>
+        {{ document.display_name }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+<script>processFileNLPWithProgress('{{ document_id }}', false);</script>
+{% endblock %}
+</section>

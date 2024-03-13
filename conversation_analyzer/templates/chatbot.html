@@ -1,0 +1,48 @@
+<!-- requires helpers.js and chatbot.js to be preloaded. -->
+{% load static %}
+{% if not hide_chatbot %}
+    <div id="chatbot" class="d-none">
+        <div class="clearfix">
+            {% if chatbot_documents and chatbot_show_document_list %}
+            <div class="form-floating">
+                <select id="document-id" class="form-select" aria-label="document">
+                    {% for document in chatbot_documents %}
+                    <option value="{{ document.uuid }}" {% if document.uuid == document_id %}selected{% endif %}>
+                        {{ document.display_name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="document-id">Select Document</label>
+            </div>
+            {% else %}
+            <input type="hidden" id="document-id" value="{{ document_id }}">
+            {% endif %}
+            <button type="button" id="chatbot-close" class="btn-close"></button>
+        </div>
+
+        <div id="chatbot-body">
+            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Warning:"
+                    viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </svg>
+                <div class="text-muted small text-center">
+                    The chatbot can make mistakes. Always verify important information.
+                </div>
+            </div>
+            <!-- the chatbot and user messages will appear here. The warning will automatically disappear. -->
+        </div>
+        <form id="chatbot-form">
+            <textarea id="chatbot-input" placeholder="Type a message..." autocomplete="off" class="form-control"></textarea>
+            <button id="chatbot-submit" class="btn btn-primary disabled"><svg width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" class="text-white">
+                    <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg></button>
+        </form>
+    </div>
+
+    <button class="btn btn-success text-white" id="chatbot-button">
+        <img src="{% static 'chatbot.svg' %}" width="24" height="24" alt="Chatbot Icon"/>
+    </button>
+{% endif %}

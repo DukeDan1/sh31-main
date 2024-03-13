@@ -1,0 +1,44 @@
+  /* Style rules for messages displayed on upload file page */
+
+  .chat-container {
+    max-width: 600px;
+    margin: 50px auto;
+    font-family: Arial, sans-serif;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.message {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.message:last-child {
+    border-bottom: none;
+}
+
+.message-content {
+    background-color: #dcf8c6;
+    border-radius: 7px;
+    padding: 10px;
+    display: inline-block;
+    max-width: 80%;
+    word-break: break-word;
+}
+
+.date-time {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.username {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+#messages {
+    max-height: 600px;
+    overflow-y: scroll;
+}

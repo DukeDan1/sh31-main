@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Alice",
+        "body": "Hi",
+        "date": "2022-01-01"
+    },
+    {
+        "name": "Bob",
+        "body": "Hello world!",
+        "date": "2022-01-02"
+    }
+]

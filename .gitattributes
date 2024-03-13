@@ -1,0 +1,6 @@
+conversation_analyzer/nlp/.flair/models/ner-english-ontonotes-large/models--flair--ner-english-ontonotes-large/blobs/93ccd06d32bae9fde24d34cd86d81d0aa687c42dd531a0e7cf4b8d81c6eefc71 filter=lfs diff=lfs merge=lfs -text
+conversation_analyzer/nlp/.flair/models/sentiment-en-mix-distillbert_4.pt filter=lfs diff=lfs merge=lfs -text
+resources/taggers/wassa/anger/final-model.pt filter=lfs diff=lfs merge=lfs -text
+resources/taggers/wassa/fear/final-model.pt filter=lfs diff=lfs merge=lfs -text
+resources/taggers/wassa/joy/final-model.pt filter=lfs diff=lfs merge=lfs -text
+resources/taggers/wassa/sad/final-model.pt filter=lfs diff=lfs merge=lfs -text

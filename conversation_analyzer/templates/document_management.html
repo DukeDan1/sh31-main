@@ -1,0 +1,24 @@
+{% load static %}
+<!-- include file anywhere where document management is needed. Include script document-management.js -->
+<!--
+  Place open element like this somewhere in the main file.
+  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-search" aria-controls="search-offcanvas-label">Toggle right offcanvas</button>
+-->
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-search" aria-labelledby="search-offcanvas-label">
+  <div class="offcanvas-header">
+    <h5 id="search-offcanvas-label">My Documents</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form id="search">
+      <div class="input-group mb-3">
+        <input type="text" id="search-input" class="form-control" placeholder="Search Documents" aria-label="Search Documents" aria-describedby="search-icon">
+        <button class="btn btn-light" type="submit" id="search-icon">
+          <img src="{% static 'search.svg' %}" width="24" height="24" alt="Search Icon">
+        </button>
+      </div>
+    </form>
+    <ul id="search-results" class="list-group mt-3"></ul>
+  </div>
+</div>

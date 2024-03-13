@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_block %}
+Data Ingestion
+{% endblock %}
+
+{% block head_block %}
+<link href="https://cdn.jsdelivr.net/npm/ag-grid-community@30.2.0/styles/ag-grid.css"
+      rel="stylesheet"
+      integrity="sha384-JTt+zn4Zhbf6S72v/8sQgqIAtkF3NPoO0mx1dOix809DJaQH/RcQTMqfGTF7P+Zb"
+      crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community@30.2.0/dist/ag-grid-community.min.js"
+        integrity="sha384-KswqoalgJ46OE1uzrWXLdYnzt51qTMTgrX33TXRohwaVgmuigJgC4Preum4hOlkC"
+        crossorigin="anonymous"></script>   
+<script src="{% static 'scripts/nlp-processing.js' %}"></script>
+<script src="{% static 'scripts/upload-file.js' %}"></script>
+<link rel="stylesheet" href="{% static 'messages.css' %}">
+{{ preview|json_script:'preview-data' }}
+{% endblock %}
+
+{% block body_block %}
+  <h1>Upload file</h1>
+
+  <hr/>
+  <secion class="d-flex flex-row justify-content-between">
+    <form id="upload-form" method="post" action="{% url 'upload' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label id="upload-label" for="{{ form.file.id_for_label }}" class="btn btn-outline-primary-inverse btn-lg">Upload</label>
+      {{ form.as_p }}
+
+    </form>
+    <div id="error">
+      {% if show_error %}
+      <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Warning:"
+            viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div class="text-muted small text-center">
+            {% if show_error == "nodocs" %}
+              You have not accepted any documents yet. Please upload and accept a document to use this feature.
+            {% elif show_error == "noperms" %}
+              You do not have permission to view this file.
+            {% endif %}
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+    </div>
+    <div id="info"></div>
+    <div>
+      <a href="{% url 'index' %}" id="accept-btn" class="btn btn-outline-success-inverse btn-lg disabled">Accept</a>
+      <a href="{% url 'upload' %}" id="reject-btn" class="btn btn-outline-danger-inverse btn-lg disabled">Reject</a>
+    </div>
+  </secion>
+  <div id="preview-wrapper">
+    <hr/>
+    <h3 id="field-map-heading" class="mt-3 d-none">Field mapping</h3>
+    <form id="field-mapping" class="d-none">
+      <p class="mt-1 mb-3">Select the core fields based on the data below.</p>
+      <div class="grid">
+        <div class="row">
+          <div class="col">
+            <div class="form-floating">
+              <select id="message-sender" name="message-sender" class="form-select" aria-label="Sender">
+                <option value="">Select a field...</option>
+              </select>
+              <label for="message-sender">Sender</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating">
+              <select id="message-body" name="message-body" class="form-select" aria-label="Message Body">
+                <option value="">Select a field...</option>
+              </select>
+              <label for="message-body">Message Body</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col mt-3">
+            <div class="form-check">
+              <input type="checkbox" id="separate-dt-fields" name="separate-dt-fields" class="form-check-input">
+              <label for="separate-dt-fields">Separate date and time fields</label>
+            </div>
+          </div>
+        </div>
+
+          <div class="row" id="message-datetime">
+            <!-- dt 2 fields-->
+            <div class="col d-none" id="message-2f-1">
+              <div class="form-floating">
+                <select id="message-date" name="message-date" class="form-select" aria-label="Date Sent">
+                  <option value="">Select a field...</option>
+                </select>
+                <label for="message-date">Date Sent</label>
+              </div>
+            </div>
+
+            <div class="col d-none" id="message-2f-2">
+              <div class="form-floating">
+                <select id="message-time" name="message-time" class="form-select" aria-label="Time Sent">
+                  <option value="">Select a field...</option>
+                </select>
+                <label for="message-time">Time Sent</label>
+              </div>
+            </div>
+
+            <!-- dt 1 field -->
+            <div class="col" id="message-1f">
+              <div class="form-floating">
+                <select id="message-timestamp" name="message-timestamp" class="form-select" aria-label="Timestamp Sent">
+                  <option value="">Select a field...</option>
+                </select>
+                <label for="message-timestamp">Timestamp sent</label>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <h3 id="messages-heading" class="mt-3 d-none">Messages:</h3>
+    <div id="messages"></div>
+    <a href="#" id="show-messages" class="d-none">Show more messages</a>
+    <section>
+      <div class="d-flex align-items-baseline justify-content-between">
+        <h3 class="mt-3">Preview:</h3>
+        <div>
+          <label for="progress-nlp">NLP Analysis Progress:</label>
+          <progress id="progress-nlp" value="0" max="100"></progress>
+        </div>
+      </div>
+    </section>
+    <div id="preview-grid" class="ag-theme-alpine"></div>
+    
+  </div>
+
+  
+{% endblock %}

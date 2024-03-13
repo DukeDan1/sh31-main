@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Participant Profile
+{% endblock %}
+
+{% block head_block %}
+<script src="https://cdn.plot.ly/plotly-2.29.1.min.js"
+        integrity="sha384-2Awn9xf60yat/9WEC0yqxTXZqM0JxXnaCOtaiZe7Ni/pRgbf6LqjX77nxupwylby"
+        crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body_block %}
+
+<h1>Participant Profile</h1>
+
+<br>
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <h6 class="card-header">Profile Search</h6>
+            <div class="card-body">
+                <form method="get" action="{% url 'profile_search' %}" class="search-form">
+                    {% csrf_token %}
+                    <input type="text" name="profile_search" id="profile-search" size="50" class="mb-2"/>
+                    <input type="submit" value="Search" class="btn btn-outline-primary-inverse" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div>
+        <div class="card mb-3">
+            <h5 class="card-header">Profile</h5>
+            <div class="grid">
+                <div class="row">
+                    <div class="col">
+                        <div class="mainprofile p-5">
+                            <img src="https://ui-avatars.com/api/?size=128&name={{ profile.name|urlencode }}"
+                                    alt="{{ profile.name }}'s avatar" width="128" height="128" class="mb-3"/>
+                            <h2>{{ profile.name }}</h2>
+
+                            <br>
+                            <p>Last activity:</p><a href="">Message at 2023-02-01 16:44</a>
+                            <br>
+
+                            <form method="post" action="{% url 'update_profile_note' profile.pk %}">
+                                {% csrf_token %}
+                                <p>Notes:</p>
+                                <textarea id="freeform" name="freeform" rows="4" cols="50">{{ profile.note }}</textarea>
+                                <br>
+                                <input type="submit" value="Save Note" class="btn btn-outline-primary-inverse" />
+                            </form>
+
+                            <br>
+
+                            <p>Associated Dataset:</p>
+                            {% for document in associated_documents %}
+                                <span class="icon">&#xe873;</span>
+                                <!-- Link to the messages_view for the document -->
+                                <a href="{% url 'messages_view' document.pk %}" 
+                                class="text-decoration-underline link-primary">{{ document.display_name }}</a>
+                                <br>
+                            {% empty %}
+                                <p>No associated datasets found.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="col p-5">
+
+                        {% autoescape off %}
+                        {{ message_risk_graph }}
+                        {% endautoescape %}
+
+                        <br>
+
+                        {% autoescape off %}
+                        {{ risk_graph }}
+                        {% endautoescape %}
+                        
+                        <p><span class="icon">&#xe160;</span>Average risk score:
+                        {{ average_risk|floatformat:2 }}
+                        </p>
+
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="card">
+            <h5 class="card-header">Related People</h5>
+            <br>
+            {% for related_profile in related_profiles %}
+                <div class="col p-3">
+                    <fieldset>
+                    <a href="{% url 'profile' related_profile.pk %}" class="d-block mb-3 text-decoration-none text-dark">
+                        <div class="d-flex subprofile align-items-center">
+                            <img src="https://ui-avatars.com/api/?name={{ related_profile.name|urlencode }}"
+                                    alt="{{ related_profile.name }}'s avatar" width="64" height="64" class="d-block"/>
+                            <h3 class="ms-3">{{ related_profile.name }}</h3>
+                        </div>
+                    </a>
+                    </fieldset>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

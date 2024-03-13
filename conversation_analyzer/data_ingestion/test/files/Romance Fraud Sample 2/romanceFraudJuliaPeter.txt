@@ -1,0 +1,41 @@
+2021-09-24T14:30:01, Julia Thompson: Hey Peter! What's up? 😄
+2021-09-24T14:32:15, Peter Wilson: Hey Julia! Just another day in paradise, lol. How bout you?
+2021-09-24T14:34:50, Julia Thompson: Same old, same old. Can't wait for the weekend tho! 🎉
+2021-09-24T14:37:30, Peter Wilson: Haha, tell me about it! Got any plans?
+2021-09-24T14:39:40, Julia Thompson: Just some R&R and maybe some gardening. You?
+2021-09-24T14:41:00, Peter Wilson: Just gonna catch up on some reading. Got this cool book on AI I've been meaning to start.
+2021-09-24T14:43:30, Julia Thompson: Oh wow I know nothing about computers… let alone AI
+2021-09-24T14:45:20, Peter Wilson: Well it's pretty fascinating, kinda techy but I'm into it.
+2021-09-24T14:48:00, Julia Thompson: Maybe we can get together and you can teach me more about it? 😉
+2021-09-24T14:50:30, Peter Wilson: For sure, I'd be down for that.
+2021-09-24T14:52:45, Julia Thompson: Haha. Can't wait for our "book club", lol.
+2021-09-24T14:55:00, Peter Wilson: Haha, sounds like a plan.
+2021-09-24T15:00:30, Peter Wilson: BTW Julia, did I tell you about my new project at work?
+2021-09-24T15:03:00, Julia Thompson: Nah, you didn't. What's it about?
+2021-09-24T15:05:45, Peter Wilson: It's a big project we're handling in Dubai. It's a pretty big deal for us at GlobalTech International.
+2021-09-24T15:08:20, Julia Thompson: Oh wow, that sounds super exciting! 😮
+2021-09-24T15:10:55, Peter Wilson: Yeah, it's pretty cool. A lot of work, but also a great opportunity.
+2021-09-24T15:13:30, Julia Thompson: Sounds like it. Be sure to keep me updated, alright?
+2021-09-24T15:15:45, Peter Wilson: Definitely will. Talk to you later, Julia!
+2021-09-24T15:18:10, Julia Thompson: Can't wait to hear all about it!
+2021-09-25T10:30:01, Peter Wilson: Hey I've been meaning to tell you something...
+2021-09-25T10:32:15, Julia Thompson: What's up babe?
+2021-09-25T10:34:50, Peter Wilson: Well, I'm in a bit of a tricky situation. You know that project I am working on…
+2021-09-25T10:39:40, Peter Wilson: It was going great, but I've run into some unexpected costs. I need to pay for a new set of equipment and I can't afford it.
+2021-09-25T10:40:00, Julia Thompson: How much are we talking?
+2021-09-25T10:43:30, Peter Wilson: I don't even know, like probably around $10,000?
+2021-09-25T10:41:00, Julia Thompson: That's a hefty amount. Can't your company cover the costs?
+2021-09-25T10:43:30, Peter Wilson: Normally, they would. But due to some bureaucratic bullshit issues, they can't release the funds until next month.
+2021-09-25T10:45:20, Julia Thompson: I'm sorry to hear that babe.
+2021-09-25T10:48:00, Peter Wilson: It's quite embarrassing, but I was wondering if you could lend me the money? I promise to pay you back as soon as the company releases the funds.
+2021-09-25T10:50:30, Julia Thompson: Babe, we've only been talking online for a few weeks now…
+2021-09-25T10:52:45, Peter Wilson: I understand... It's just that I'm in a tight spot. I don't want to lose this job, you know?
+2021-09-25T10:55:00, Julia Thompson: I'm sorry.
+2021-09-25T10:56:00, Julia Thompson: I wish I could help
+2021-09-25T10:57:15, Peter Wilson: I understand. I didn't mean to put you in an uncomfortable position.
+2021-09-25T10:58:05, Peter Wilson: I didn't mean to put you in an uncomfortable position.
+2021-09-25T10:59:30, Julia Thompson: It's okay, I hope you understand my position as well.
+2021-09-25T11:02:00, Peter Wilson: Of course, Julia. I completely understand. I didn't mean to put you on the spot. I just thought... well, I felt like we had a connection, y'know?
+2021-09-25T11:04:30, Julia Thompson: We do, I mean we've had some good chats, and I do like talking to you. But lending money like this... it's a bit much.
+2021-09-25T11:07:00, Peter Wilson: It just feels like you don't really care about me truly…
+2021-09-25T11:07:30, Julia Thompson: What? I do babe!

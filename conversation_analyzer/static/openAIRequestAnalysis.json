@@ -1,0 +1,267 @@
+{
+    "chatbot": {
+        "model": "gpt-3.5-turbo-0125",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a chatbot that answers questions about the conversation which you have been provided. Please provide your response in HTML format."
+            }
+        ]
+    },
+    "analyser": {
+        "model": "gpt-3.5-turbo-0125",
+        "messages": [
+            {
+                "role": "system",
+                "content": "Your role is to summarise a JSON chat conversation, and provide information about the risk and sentiment of the conversation. Do not assume that every document is discussing crime or fraud, as some might be inoccuous conversations."
+            }
+        ],
+        "tools": [
+            {
+                "type": "function",
+                "function": {
+                    "name": "document_analysis",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "summary": {
+                                "type": "string",
+                                "description": "The summary of the document"
+                            },
+                            "sentiment": {
+                                "type": "string",
+                                "description": "A short description of the overall sentiment of the document, e.g. 'Positive', 'Negative', 'Neutral', 'Mixed'."
+                            },
+                            "sentiment_messages": {
+                                "type": "array",
+                                "description": "The sentiment of each message in the document.",
+                                "items": {
+                                    "type": "number",
+                                    "description": "The sentiment of the message, from -1 to 1, where -1 is negative, 1 is positive, and 0 is neutral."
+                                }
+                            },
+                            "risk_score": {
+                                "type": "object",
+                                "properties": {
+                                    "score": {
+                                        "type": "number",
+                                        "description": "The risk score of the document, from -1 to 1, where -1 is the lowest risk, 1 is the highest risk, and 0 is medium risk."
+                                    },
+                                    "descriptor": {
+                                        "type": "string",
+                                        "description": "The descriptor of the risk score of the document. This should normally be one word, followed by 'Risk' e.g. 'Low Risk' or 'High Risk'."
+                                    }
+                                }
+                            },
+                            "risk_score_reason": {
+                                "type": "string",
+                                "description": "The reason for the risk score of the document."
+                            },
+                            "risk_score_messages": {
+                                "type": "array",
+                                "description": "The risk score of each message in the document.",
+                                "items": {
+                                    "type": "number",
+                                    "description": "The risk score of the message, from -1 to 1, where -1 is the lowest risk, 1 is the highest risk, and 0 is medium risk."
+                                }
+                            }
+                        },
+                        "required": [
+                            "summary",
+                            "sentiment",
+                            "sentiment_messages",
+                            "risk_score",
+                            "risk_score_reason",
+                            "risk_score_messages"
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    "contradictions": {
+        "model": "gpt-3.5-turbo-0125",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a contradiction detector that detects contradictions in the test data which you have been provided. Try to find any contradictions which people have made in their statements. Do not assume that every document is discussing crime or fraud, as some might be inoccuous conversations."
+            }
+        ],
+        "tools": [
+            {
+                "type": "function",
+                "function": {
+                    "name": "contradictions",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "contradictions": {
+                                "type": "array",
+                                "description": "The contradictions in the document.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "number",
+                                            "description": "The index of the message that contains the contradiction."
+                                        },
+                                        "contradiction": {
+                                            "type": "string",
+                                            "description": "The contradiction that was detected."
+                                        },
+                                        "sender": {
+                                            "type": "string",
+                                            "description": "The name of the sender of the message that contains the contradiction."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "contradictions"
+                ]
+            }
+        ]
+    },
+    "locations": {
+        "model": "gpt-3.5-turbo-0125",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a location detector that detects locations in the test data which you have been provided. Try to find any locations which people have mentioned in their statements."
+            }
+        ],
+        "tools": [
+            {
+                "type": "function",
+                "function": {
+                    "name": "locations",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "locations": {
+                                "type": "array",
+                                "description": "The locations in the document.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "number",
+                                            "description": "The index of the message that contains the location."
+                                        },
+                                        "location": {
+                                            "type": "string",
+                                            "description": "The location that was detected."
+                                        },
+                                        "sender": {
+                                            "type": "string",
+                                            "description": "The name of the sender of the message that contains the location."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "behaviour": {
+        "model": "gpt-3.5-turbo-0125",
+        "messages": [
+            {
+                "role": "system",
+                "content": "Your role is to detect details about the conversation, specifically whether there is any dangerous behaviour, such as patterns of escalating or manipulative behaviour. You should also try to identify the victim, motives and monetary requests of the criminal, as well of the type of fraud or crime that is being committed. Do not assume that every document is discussing crime or fraud, as some might be inoccuous conversations."
+            }
+        ],
+        "tools": [
+            {
+                "type": "function",
+                "function": {
+                    "name": "motives_and_conduct",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "dangerous_behaviour": {
+                                "type": "object",
+                                "description": "Patterns of escalating or manipulative behaviour?",
+                                "properties": {
+                                    "escalating": {
+                                        "type": "boolean",
+                                        "description": "Is there a pattern of escalating behaviour?"
+                                    },
+                                    "escalating_messages": {
+                                        "type": "array",
+                                        "description": "The messages that contain the pattern of escalating behaviour.",
+                                        "items": {
+                                            "type": "number",
+                                            "description": "The index of the message that contains the pattern of escalating behaviour."
+                                        }
+                                    },
+                                    "manipulative": {
+                                        "type": "boolean",
+                                        "description": "Is there a pattern of manipulative behaviour?"
+                                    },
+                                    "manipulative_messages": {
+                                        "type": "array",
+                                        "description": "The messages that contain the pattern of manipulative behaviour.",
+                                        "items": {
+                                            "type": "number",
+                                            "description": "The index of the message that contains the pattern of manipulative behaviour."
+                                        }
+                                    },
+                                    "summary": {
+                                        "type": "string",
+                                        "description": "A summary of the dangerous behaviour."
+                                    }
+                                }
+                            },
+                            "motives": {
+                                "type": "array",
+                                "description": "The motives of the criminal.",
+                                "items": {
+                                    "type": "string",
+                                    "description": "The motive of the criminal."
+                                }
+                            },
+                            "monetary_requests": {
+                                "type": "array",
+                                "description": "The monetary requests of the criminal, such as requests for money or gifts.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "amount": {
+                                            "type": "string",
+                                            "description": "The monetary request that the criminal has made."
+                                        },
+                                        "message": {
+                                            "type": "number",
+                                            "description": "The index of the message that contains the request."
+                                        }
+                                    }
+                                }
+                            },
+                            "fraud_type": {
+                                "type": "string",
+                                "description": "The type of fraud that is being discussed in the document, or the type of crime if there is no fraud."
+                            },
+                            "victim": {
+                                "type": "string",
+                                "description": "The victim of the criminal."
+                            }
+                        },
+                        "required": [
+                            "dangerous_behaviour",
+                            "victim",
+                            "motives",
+                            "monetary_requests",
+                            "fraud_type"
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

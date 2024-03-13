@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Settings
+{% endblock %}
+
+{% block body_block %}
+
+<br>
+
+<div class="card mb-3">
+    <div class="card-body">
+      <h4 class="card-title">Settings</h4>
+
+        <div class="row">
+            <div class="col">
+            <div class="card">
+                <h6 class="card-header">Enable Recent Query Tracking</h6>
+                    <div class="card-body">
+                        <form id="query_tracking_form" method="post" action="{% url 'update_query_tracking' %}">
+                            {% csrf_token %}
+                            <label class="switch">
+                                <input type="checkbox" name="query_tracking" onchange="document.getElementById('query_tracking_form').submit();" {% if query_tracking_enabled %}checked{% endif %}>
+                                <span class="slider round"></span>
+                            </label>
+                        </form>
+                    </div>
+            </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col">
+            <div class="card">
+                <h6 class="card-header">Change Password</h6>
+                    <div class="card-body p-5">
+                        <form id="settings_form" method="post" action="{% url 'settings' %}" class="card-body p-0">
+                            {% csrf_token %}
+                            {{ password_change_form.as_p }}
+                            <input type="submit" value="Change Password" class="btn btn-outline-success-inverse" />
+                        </form>
+                    </div>
+            </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col">
+            <div class="card">
+                <h6 class="card-header">About Us</h6>
+                    <div class="card-body">
+                        <p>Conversation Intelligence Analyser revolutionises the way you 
+                            understand and interpret chat interactions. Our cutting-edge platform meticulously analyses chat logs, 
+                            transforming them into insightful profiles and comprehensive analyses for entire conversations. 
+                            We specialise in producing detailed graphs and assigning risk/sentiment scores, 
+                            offering an unparalleled depth of understanding. Whether you're a business looking to enhance customer service, 
+                            a team aiming to improve communication, or an individual seeking insights into chat dynamics, 
+                            our tool provides the clarity and perspective needed to make informed decisions. 
+                            Dive into the essence of your conversations with Conversation Intelligence 
+                            Analyser and unlock the power of data-driven analysis.</p>
+                    </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+{% endblock %}

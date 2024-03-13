@@ -1,0 +1,86 @@
+{
+    "model": "gpt-3.5-turbo-0125",
+    "messages": [
+        {
+            "role": "system",
+            "content": "Your job is to parse an unstructured file and return the data in a machine readable, parsed format. Not all fields will be available for every entry, but if they are present, include them. The required fields for every entry are: date, time, name (the sender of the message), body (the message body)."
+        }
+    ],
+    "tools": [
+        {
+            "type": "function",
+            "function": {
+                "name": "document_parser",
+                "description": "Parse the data from the conversation entry.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "conversation": {
+                            "type": "array",
+                            "description": "The array of objects. Each object in this array represents a message in the conversation.",
+                            "items": {
+                                "type": "object",
+                                "description": "The object representing a message in the conversation.",
+                                "properties": {
+                                    "date": {
+                                        "type": "string",
+                                        "description": "Date that the message was sent in YYYY-MM-DD"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "description":
+                                            "Time that the message was sent in HH:MM:SS"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "description": "The unique username for the user."
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The sender of the message, this could be the username or the full name of the user."
+                                    },
+                                    "body": {
+                                        "type": "string",
+                                        "description": "The message which has been sent."
+                                    },
+                                    "attachments": {
+                                        "type": "array",
+                                        "description": "The attachments which have been sent with the message.",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "description": "The name of the attachment."
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "description": "The URL of the attachment."
+                                                }
+                                            },
+                                            "required": ["name", "url"]
+                                        }
+                                    },
+                                    "ip_address": {
+                                        "type": "string",
+                                        "description": "The IP address of the user."
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "description": "A URL for the user's profile picture."
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "description": "The user's phone number."
+                                    }
+                                },
+                                "required": ["body", "date", "time", "name"]
+                            }
+                        }
+                    },
+                    "required": ["conversation"]
+                }
+            }
+        }
+    ]
+}

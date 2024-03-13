@@ -1,0 +1,30 @@
+image: stgit.dcs.gla.ac.uk:5050/team-project-h/2023/sh31/sh31-main/django-lint-test:20240118
+
+stages:
+    - lint
+    - test
+
+web-lint:
+    stage: lint
+    script:
+        - mv /packages/node_modules .
+        - /root/.nvm/versions/node/v21.6.0/bin/node node_modules/eslint/bin/eslint.js conversation_analyzer/static/scripts/*.js
+        - djlint conversation_analyzer/templates
+
+python-lint:
+    stage: lint
+    script:
+        - python -m pip install -r requirements.txt
+        - pylint conversation_analyzer
+        - mypy conversation_analyzer
+
+python-test:
+    stage: test
+    script:
+        - python -m pip install -r requirements.txt
+        - python conversation_analyzer/manage.py makemigrations analyzer
+        - python conversation_analyzer/manage.py migrate analyzer
+        - cd conversation_analyzer
+        - coverage run --source='analyzer,data_ingestion,nlp' manage.py test analyzer analyzer.io data_ingestion nlp
+        - coverage report
+    coverage: '/^TOTAL.*\s+(\d+\%)$/'

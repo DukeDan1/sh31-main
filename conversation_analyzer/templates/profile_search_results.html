@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<br>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h6 class="card-header">Profile Search</h6>
+                <div class="card-body">
+
+                    <form method="get" action="{% url 'profile_search' %}" class="search-form">
+                        {% csrf_token %}
+                            <input type="text" name="profile_search" id="profile-search" size="50" class="mb-2"/>
+                            <input type="submit" value="Search" class="btn btn-outline-primary-inverse" />
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+    <br>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <h6 class="card-header">Search Results</h6>
+                <div class="card-body">
+                    {% for profile in profiles %}
+                        <div class="col p-3">
+                            <fieldset>
+                                <a href="{% url 'profile' profile.pk %}" class="d-block mb-3 text-decoration-none text-dark">
+                                    <div class="d-flex subprofile align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name={{ profile.name|urlencode }}"
+                                                alt="{{ profile.name }}'s avatar" width="64" height="64" class="d-block"/>
+                                        <h3 class="ms-3">{{ profile.name }}</h3>
+                                    </div>
+                                </a>
+                            </fieldset>
+                        </div>
+                    {% empty %}
+                        <p>No profiles found.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
