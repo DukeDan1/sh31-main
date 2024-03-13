@@ -42,12 +42,12 @@ fi
 
 echo "Unzipping NLP files..."
 
-if ! unzip "$base_path"/flair.zip ; then
+if ! unzip -o "$base_path"/flair.zip ; then
     echo "Failed to unzip flair files."
     exit 1
 fi
 
-if ! unzip "$base_path"/resources.zip ; then
+if ! unzip -o "$base_path"/resources.zip ; then
     echo "Failed to unzip resources files."
     exit 1
 fi
